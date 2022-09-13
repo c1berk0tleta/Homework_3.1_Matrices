@@ -1,96 +1,88 @@
 import java.util.Random;
-import java.util.Scanner;
 
 public class Matrix {
-    public static Scanner num = new Scanner(System.in);
-    int a,b,c;
-    int[][] array,array2;
 
-    public Matrix(int a, int b) {
+    private final int mxColumn, mxLine;
+    private final int[][] mxArr;
+
+    public Matrix(int mxColumn, int mxLine) {
         Random random = new Random();
-        this.a = a;
-        this.b = b;
-        int[][] array = new int[a][b];
-        int[][] array2 = new int[a][b];
+        mxArr = new int[mxColumn][mxLine];
 
-        for (int i = 0; i < array.length; i++) {
-            
-            for (int j = 0; j < array[i].length; j++) {
-                array[i][j] = random.nextInt(25);
-                System.out.print(array[i][j] + " ");
+        for (int i = 0; i < mxArr.length; i++) {
+            for (int j = 0; j < mxArr[i].length; j++) {
+                set(i, j, random.nextInt(10));
             }
-            
+        }
+
+        this.mxColumn = mxColumn;
+        this.mxLine = mxLine;
+    }
+
+    public int get(int mxColumn, int mxLine) {
+        return mxArr[mxColumn][mxLine];
+    }
+    public void set(int mxColumn, int mxLine, int mxSet) {
+        mxArr[mxColumn][mxLine] = mxSet;
+    }
+
+    void output() {
+        for (int i = 0; i < mxArr.length; i++) {
+            for (int j = 0; j < mxArr[i].length; j++) {
+                System.out.print(get(i, j) + " ");
+            }
             System.out.println();
         }
         System.out.println();
-
-        for (int i = 0; i < array2.length; i++) {
-            
-            for (int j = 0; j < array2[i].length; j++) {
-                array2[i][j] = random.nextInt(10);
-                System.out.print(array2[i][j] + " ");
-            }
-            
-            System.out.println();
-        }
-        this.array = array;
-        this.array2 = array2;
     }
 
-    public void plusMatrix(int[][] array, int[][] array2) {
-        int[][] arrays = new int[a][b];
-        
-        for (int i = 0; i < array.length; i++) {
-            
-            for (int j = 0; j < array[i].length; j++) {
-                arrays[i][j] = array[i][j] + array2[i][j];
-                System.out.print(arrays[i][j] + " ");
+    Matrix plusMatrix(Matrix mx) {
+        Matrix mxPlus = new Matrix(mxColumn, mxLine);
+
+        for (int i = 0; i < mxArr.length; i++) {
+            for (int j = 0; j < mxArr[i].length; j++) {
+                mxPlus.set(i, j, get(i, j) + mx.get(i, j));
             }
-            
-            System.out.println();
         }
+
+        return mxPlus;
     }
 
-    public void multiNumber(int[][] array, int c) {
-        this.c = c;
-        int[][] multi = new int[a][b];
+    Matrix multiNumber(int num) {
+        Matrix mx = new Matrix(mxColumn, mxLine);
 
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                multi[i][j] = array[i][j] * c;
-                System.out.print(multi[i][j] + " ");
+        for (int i = 0; i < mx.mxColumn; i++) {
+            for (int j = 0; j < mx.mxLine; j++) {
+                mx.set(i, j, get(i, j) * num);
             }
-            
-            System.out.println();
-
-
         }
+
+        return mx;
     }
 
-    //Вывод на печать
-    public static Scanner text = new Scanner(System.in);
+    Matrix multiMatrix(Matrix s) {
+        Matrix mx = new Matrix(mxColumn, mxLine);
+        int calc = 0;
 
-    public void multiMatrix(int[][] array, int[][] array2) {
-        int[][] d = new int[a][b];
-        int e = 0;
-
-        for (int i = 0; i< array.length;i++){
-            
-            for(int j = 0;j < array[i].length;j++){
-                
-                for(int k = 0; k < array[i].length;k++){
-                    e = e + array[i][k] * array2[k][j];
+        for (int i = 0; i < mx.mxColumn; i++) {
+            for (int j = 0; j < mx.mxLine; j++) {
+                if (mx.mxColumn < mx.mxLine) {
+                    for (int k = 0; k < mx.mxColumn; k++) {
+                        calc = calc + (get(i, k) * get(k,j));
+                    }
                 }
-                
-                d[i][j] = e;
-                e = 0;
-                System.out.print(d[i][j] + " ");
+                else {
+                    for (int k = 0; k < mx.mxLine; k++) {
+                        calc = calc + (get(i, k) * s.get(k,j));
+                    }
+                }
+
+                mx.set(i,j,calc);
+                calc = 0;
             }
-            
-            System.out.println();
         }
 
+        return mx;
     }
-
 }
 

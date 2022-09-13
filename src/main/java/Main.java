@@ -1,27 +1,27 @@
 public class Main {
     public static void main(String[] args) {
         
-        System.out.println("Введите значение матрицы №1 и №2 (через Enter)");
-        Matrix mat = new Matrix(Matrix.num.nextInt(), Matrix.num.nextInt());
-            System.out.println();
+        Matrix mx  = new Matrix (3,3);
+        Matrix mx2 = new Matrix (3,3);
+        Matrix mx3,mx4,mx5,mx6;
+
+        mx.output();
+        mx2.output();
 
         System.out.println("Сложение матриц");
-        mat.plusMatrix(mat.array,mat.array2);
-            System.out.println();
+        mx3 = mx.plusMatrix(mx2);
+        mx3.output();
 
-        System.out.println("Укажите число, умножаемое №1 и №2");
-        mat.multiNumber(mat.array, Matrix.num.nextInt());
-            System.out.println();
-        mat.multiNumber(mat.array2, mat.c);
-            System.out.println();
-
-        System.out.println("Введите текст для вывода на печать");
-        Matrix.text.nextLine();
+        System.out.println("Умножение матрицы #1 на число 3");
+        mx4 = mx.multiNumber(4);
+        mx4.output();
+        System.out.println("Умножение матрицы #3 на число 3");
+        mx5 = mx2.multiNumber(4);
+        mx5.output();
 
         System.out.println("Умножение матриц");
-        mat.multiMatrix(mat.array,mat.array2);
-            System.out.println();
-        
+        mx6 = mx.multiMatrix(mx2);
+        mx6.output();
     }
 
 
